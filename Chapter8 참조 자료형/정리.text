@@ -1,0 +1,62 @@
+* 참조 자료형
+
+기본 자료형 8개를 제외한 나머지 타입은 모두 참조 자료형(Reference type)이다.
+
+앞장까지 배운 각종 연산자들은 대부분 기본 자료형을 위해서 존재하는 것이다. 그 중에서 +는 참조 자료형 중에서 String 클래스만 사용 가능하고, 나머지 클래스에서는 사용할 수 없다. 그 이외에 다른 참조 자료형이 사용할 수 있는 연산자는 오직 하나다. 바로 값을 할당하기 위한 등호(=) 뿐이다.
+
+참조 자료형은 new를 사용하여 객체를 사용한다. new 뒤에 나오는 것이 바로 생성자다.
+생성자는 메소드와 비슷하게 생겼지만, 리턴 타입이 없고, 클래스 이름으로 되어 있다는 점이 메소드와 다르다.
+
+* 오버로딩(Overloading)
+메소드의 이름을 같도록 하고, 매개 변수만을 다르게 하는 것
+
+public class ReferenceOverloading {
+	public static void main(String args[]){
+	  ReferenceOverloading reference = new ReferenceOverloading();
+	}
+	
+	public void print(int data){
+	}
+
+	public void print(String data){
+	}
+
+	public void print(int intData,  String stringData){
+	}
+
+	public void print(String stringData, int intData){
+	}
+
+}
+
+* Static 메소드
+
+static은 개게를 생성하지 않아도 메소드를 호출할 수 있는 메소드이다.
+
+public class ReferenceStatic{
+	public static void main(String args[]){
+		Reference.staticMethod();
+	}
+	public static void staticMethod(){
+		System.out.println("This is a staticMethod.");
+	}
+}
+
+--> 컴파일 하면
+This is a staticMethod.  정상 출력됨.
+
+왜냐하면, staticMethod() 메소드는 static 메소드이기 때문에 객체를 생성하지 않고서도 메소드를 호출 가능.
+
+
+하지만, static 메소드는 클래스 변수(static 붙은 변수)만 사용할 수 있다는 단점이 있다.
+
+* Pass by value, Pass by reference
+
+Pass by value
+복제술처럼 메소드의 매개 변수로 넘길 때에 원래 값은 놔두고, 전달되는 값이 원래값인 것처럼 보이개 한다. 그래서, 매개 변수를 받은 메소드에서 그 값을 어떻게 지지고 볶던 간에 원래의 값은 변하지 않는다.
+기본 자료형은 무조건 Pass by value로 데이터를 전달한다.
+
+Pass by reference
+Pass by reference로 값이 전달되면, 호출한 메소드의 데이터에도 영향이 있다.
+만약 매개 변수로 받은 참조 자료형 안에 있는 객체를 변경하면, 호출한 참조 자료형 안에 있는 객체는 호출된 메소드에서 변경한 대로 데이터가 바뀐다. 이와 같이 값(value)가 아니라 객체에 대한 참조(reference)가 넘어가는 것을 Pass by Reference라고 한다.
+참조 자료형은 Pass by Reference로 데이터를 전달한다.
