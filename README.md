@@ -1,3 +1,3 @@
 # Java
-This repository exists for practicing and recording process of Java study code
-Book reference : godOfJava
+'자바의 신'이라는 교재로 Java 언어를 공부하면서, 직접 작성한 실습 코드와 기록해 둘 사항들을 정리하고 있습니다.
+향후 Spring을 배우는데 있어서 소중하고 탄탄한 기반이 될 수 있도록 기록을 남깁니다.
