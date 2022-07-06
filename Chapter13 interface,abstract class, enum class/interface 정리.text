@@ -1,0 +1,71 @@
+자바에서 .class 파일을 만들 수 있는 것에는 클래스만 있는 것이 아니다.
+interface와 abstract 클래스가 존재한다.
+
+interface, abstract 클래스를 사용하는 이유
+1. 설계시 선언해 두면 개발할 때 기능을 구현하는 데에만 집중할 수 있다.
+2. 개발자의 역량에 따른 메소드의 이름과 매개 변수 선언의 격차를 줄일 수 있다.
+3. 공통적인 interface와 abstract 클래스를 선언해 놓으면, 선언과 구현을 구분할 수 있다.
+
+* interface class
+
+package c.service;
+
+import c.model.MemberDTO;
+
+public interface MemberManager {
+
+	public boolean addMember(MemberDTO member);
+	public boolean removeMember(String name, String phone);
+	public boolean updateMember(MemberDTO member);
+
+}
+
+
+인터페이스 선언부는 public interface로 시작한다.
+interface 내부에 선언된 메소드들은 몸통이 있으면 안 된다. 즉, 메소드 선언 이후에 중괄호를 열고 닫거나 중괄호 안에 한 줄의 코드도 있으면 안된다.
+
+<interface 구현>
+
+package c.service;
+
+public class MemberManagerImpl implements MemberManager{
+
+	@Override
+	public boolean addMemeber(MemberDTO member){
+		return false;
+	}
+
+	@Override
+	public boolean removeMember(String name, String phone){
+		return false;	
+	}
+
+	@Override
+	public boolean updateMember(MemberDTO member){
+		return false;
+	}
+
+}
+
+인터페이스를 구현할 경우에는 반드시 인터페이스에 정의 된 메소드들을 모두 구현해줘야한다.
+
+이제 개발자들이 해야 하는 일은 대충 return false만 적어 놓은 메소드들이 실제로 Member 정보를 저장하고, 삭제하고, 수정하는 일을 할 수 있도록 제대로 된 코드를 만드는 것이다. 바로 이 작업이 개발 프로세스 중에서 "개발"에 해당한다.
+정리하자면, 설계 단계에서 인터페이스만 만들어 놓고, 개발 단계에서 실제 작업을 수행하는 메소드를 만들면 설계 단계의 산출물과 개발 단계의 산출물이 보다 효율적으로 관리된다.
+
+이렇게 설계에서만 사용하려고 인터페이스를 만드는 것은 아니다. 인터 페이스의 또 다른 용도는 외부에 노출되는 것을 정의해 놓고자 할 떄 사용된다. 다시 말해서 MemberManagerImpl이라는 클래스가 있는데, 이 클래스가 "저한테 직접 이야기하지 마시구요. 공식적인 것은 저의 대변인을 통해서 말씀하세요"라고 내 놓는 대변인이 바로 인터페이스다.
+
+<interface 사용하기>
+
+package c;
+
+import c.service.MemberManager;
+import c.service.MemeberManagerImpl;
+
+public class InterfaceExample{
+	public static void main(String[] args){
+		MemberManager member = new MemberManagerImpl();
+}
+
+
+
+

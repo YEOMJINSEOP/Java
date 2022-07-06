@@ -1,0 +1,137 @@
+
+* abstract class
+
+package c.service;
+
+import c.model.MemberDTO;
+
+public abstract class MemberManagerAbstract{
+
+	public abstract boolean addMember(MemberDTO member);
+	public abstract boolean removeMember(String name, String phone);
+	public abstract boolean updateMember(MemberDTO member);
+	public void printLon(String data){
+		System.out.println("Data=" + data);
+	}
+
+}
+
+abstract 클래스는 클래스 선언시 abstract이라는 예약어가 클래스 앞에 추가되면 된다.
+abstract 클래스 안에는 abstract으로 선언된 메소드가 0개 이상 있으면 된다.
+abstract으로 선언된 메소드가 하나라도 있으면, 그 클래스는 반드시 abstract으로 선언되어야만 한다.
+abstract 클래스는 몸통이 있는 메소드가 0개 이상 있어도 전혀 상관없으며, static이나 final 메소드가 있어도 된다.
+(interface는 static이나 final 메소드가 선언되더 있으면 안 된다.)
+
+
+이러한 abstract 클래스는 인터페이스처럼 implements라는 예약어를 사용해 구현할 수 없다. 왜냐하면 인터페이스가 아니라 클래스이기 때문이다.
+클래스의 상속에서 extends라는 예약어를 사용해 그 뒤에 확장할 클래스 이름을 명시했었다. 마찬가지로, abstract 클래스에는 구현된 메소드가 있을 수 있기 때문에 확장해서 사용한다고 얘기해줘야한다.
+
+(extends 뒤에는 클래스가 단 하나만 존재할 수 있고, implements 뒤에는 interface가 여러 개 존재할 수 있다는 것은 꼭 기억!)
+
+package c.service;
+
+import c.model.MemberDTO;
+
+public class MemberManagerImpl2 extends MemberManagerAbstract{
+	public boolean addMember(MemberDTO member){
+		return false;
+	}
+	
+	public boolean removeMember(String name, String phone){
+		return false;
+	}
+
+	public boolean updateMember(MemberDTO member){
+		return false;
+	}
+}
+
+
+-----------------------------------------------------------------------------------------------
+			|interface      |abstract class	|   class       |
+-----------------------------------------------------------------------------------------------
+선언 시 사용하는 예약어	|interface	|abstract class	|   class	|
+			|		|		|		|
+-----------------------------------------------------------------------------------------------
+구현 안 된 메소드 포함 가능?	| 가능(필수)	|	가능	|	불가	|
+-----------------------------------------------------------------------------------------------
+구현된 메소드 포함 가능?	| 불가능		|	가능	|	가능(필수)	|
+-----------------------------------------------------------------------------------------------
+static 메소드 선언 가능 여부	| 불가능		|	가능	|	가능	|
+-----------------------------------------------------------------------------------------------
+final 메소드 선언 가능 여부	| 불가		|	가능	|	가능	|
+-----------------------------------------------------------------------------------------------
+상속(extends) 가능?	| 불가		|	가능	|	가능	|
+-----------------------------------------------------------------------------------------------
+구현(implements) 가능?	| 가능		|	불가	|	불가능	|
+-----------------------------------------------------------------------------------------------
+
+* 상속과 관련해 알아둬야하는 예약어 final
+
+final은 클래스, 메소드, 변수에 선언할 수 있다.
+
+1) 클래스에 선언할 경우 다음과 같이 선언하면 된다.
+
+public final class FianlClass{
+
+}
+
+클래스에 선언하는 경우는? 더 이상 확장해서는 안 되는 클래스, 누군가 이 클래스를 상속 받아서 내용을 변경해서는 안 되는 클래스를 선언할 때 final로 선언하면 된다.
+
+
+2) 메소드에 선언할 경우
+
+public abstract class FinalMethodClass{
+	public final void printLog(String data){
+		System.out.println("Data = " + data);
+	} 
+}
+
+메소드에 선언하는 경우는? 클래스에 선언할 때와 비슷한 이유이다. 다른 개발자가 여러분들이 만든 메소드를 변경하지 못하도록 메소드를 overriding하는 것을 막고 싶을 때 final로 만들면 된다. 메소드에 그렇게 자주 사용되지는 않는다.
+
+
+3) 변수에 선언할 경우
+<기본 자료형>
+
+변수에 final을 사용하는 것은 개념이 조금 다르다. 변수에 final을 사용하면 그 변수는 "더 이상 바꿀 수 없다."라는 말이다.
+그래서, 인스턴스 변수나 static으로 선언된 클래스 변수는 선언과 함께 값을 지정해야만 한다.
+
+public class FinalVariable{
+	final int instanceVariable = 1; // 값을 꼭 지정해줘야한다.
+}
+
+
+하지만 매개 변수나 지역 변수는 초기화를 꼭 하지 않아도 된다.
+public class FinalVariable{
+	final int instanceVariable = 1;
+	
+	public void method(final int parameter){
+		final int localVariable;
+	}
+}
+매개 변수는 이미 초기화가 되어서 넘어 왔고, 지역 변수는 메소드를 선언하는 중괄호 내에서만 참조되므로 다른 곳에서 변경할 일이 없다. 
+따라서, 컴파일은 전혀 문제없이 된다.
+
+<참조 자료형>
+final로 선언된 클래스의 객체는 두 번 이상 생성할 수 없다.
+하지만, 그 객체의 안에 있는 객체들은 final로 선언된 것이 아니기 때문에 이런 제약이 없다.
+왜냐하면 MemberDTO에 선언되어 있는 name, phone, email 모두 final이 아니기 때문이다.
+해당 클래스가 final이라고 해서, 그 안에 있는 인스턴스 변수나 클래스 변수가 final은 아니라는 부분은 꼭 기억해둬야한다.
+
+public class FinalReferenceType{
+	final MemberDTO dot = new MemberDTO();
+
+	public static void main(String[] args){
+		FinalReferenceType referenceType = new FinalReferenceType();
+		referenceType.checkDTO();
+	}
+
+	public void checkDTO(){
+		System.out.println(dot);
+		// dto = new MemberDTO(); // 이렇게 다시 생성자로 초기화하면 컴파일 시 에러가 발생한다.
+		
+		dto.name = "Sangmin"; // dto 안에 있는 name, phone, email은 final이 아니기 때문에
+				      // 새로 값을 할당할 수 있다.
+	}
+}
+	
