@@ -17,7 +17,6 @@ public class FilesManager {
     FilesManager sample = new FilesManager();
     String fileName = "AboutNIO2.text";
     Path fromPath = sample.writeAndRead(fileName);
-    sample.copyMoveDelete(fromPath, fileName);
   }
 
   public List<String> getContents() {
@@ -62,13 +61,13 @@ public class FilesManager {
     return returnPath;
   }
 
-  public void copyMoveDelete(Path fromPath, String fileName) {
-    try {
+  public void copyMoveDelete(Path fromPath, String fileName){
+    try{
       Path toPath = fromPath.toAbsolutePath().getParent();
 
       // Make a directory if it does not exist.
-      Path copyPath = toPath.resolve("copied");
-      if (!Files.exists(copyPath)) {
+      Path copyPath =  toPath.resolve("copied");
+      if(!Files.exists(copyPath)){
         Files.createDirectories(copyPath);
       }
 
@@ -83,13 +82,16 @@ public class FilesManager {
 
       // Move file
       Path movedFilePath = Files.move(copiedFilePath,
-          copyPath.resolve("moved.txt"), copyOption);
-
-      // Delete files
-      Files.delete(movedFilePath);
-      Files.delete(copyPath);
-    } catch (Exception e) {
-      e.printStackTrace();
+        copyPath.resolve("moved.txt"), copyOption);
     }
+
+    // Delete files
+    Files.delete(movedFilePath);
+    Files.delete(copyPath);
+  }catch(
+
+  Exception e)
+  {
+    e.printStackTrace();
   }
 }

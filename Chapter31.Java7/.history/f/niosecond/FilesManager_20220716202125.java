@@ -15,7 +15,7 @@ public class FilesManager {
 
   public static void main(String[] args) {
     FilesManager sample = new FilesManager();
-    String fileName = "AboutNIO2.text";
+    String fileName = "AboutNIO.text";
     Path fromPath = sample.writeAndRead(fileName);
     sample.copyMoveDelete(fromPath, fileName);
   }
